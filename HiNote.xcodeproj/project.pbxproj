@@ -23,6 +23,8 @@
 		166376AB1893B43C00617C20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 166376A91893B43C00617C20 /* InfoPlist.strings */; };
 		166376AD1893B43C00617C20 /* HiNoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376AC1893B43C00617C20 /* HiNoteTests.m */; };
 		166376B91893B59300617C20 /* OMToDoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376B81893B59300617C20 /* OMToDoItem.m */; };
+		166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376BB1893E92300617C20 /* SSToDoListViewController.m */; };
+		166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376BC1893E92300617C20 /* SSToDoListViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,9 @@
 		166376AC1893B43C00617C20 /* HiNoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiNoteTests.m; sourceTree = "<group>"; };
 		166376B71893B59300617C20 /* OMToDoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMToDoItem.h; sourceTree = "<group>"; };
 		166376B81893B59300617C20 /* OMToDoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OMToDoItem.m; sourceTree = "<group>"; };
+		166376BA1893E92300617C20 /* SSToDoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSToDoListViewController.h; sourceTree = "<group>"; };
+		166376BB1893E92300617C20 /* SSToDoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSToDoListViewController.m; sourceTree = "<group>"; };
+		166376BC1893E92300617C20 /* SSToDoListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSToDoListViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +125,9 @@
 			children = (
 				166376921893B43C00617C20 /* SSAppDelegate.h */,
 				166376931893B43C00617C20 /* SSAppDelegate.m */,
+				166376BA1893E92300617C20 /* SSToDoListViewController.h */,
+				166376BB1893E92300617C20 /* SSToDoListViewController.m */,
+				166376BC1893E92300617C20 /* SSToDoListViewController.xib */,
 				166376B61893B55400617C20 /* Object Model */,
 				166376981893B43C00617C20 /* Images.xcassets */,
 				1663768A1893B43C00617C20 /* Supporting Files */,
@@ -243,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1663768E1893B43C00617C20 /* InfoPlist.strings in Resources */,
+				166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */,
 				166376991893B43C00617C20 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				166376B91893B59300617C20 /* OMToDoItem.m in Sources */,
+				166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */,
 				166376941893B43C00617C20 /* SSAppDelegate.m in Sources */,
 				166376901893B43C00617C20 /* main.m in Sources */,
 				166376971893B43C00617C20 /* HiNote.xcdatamodeld in Sources */,

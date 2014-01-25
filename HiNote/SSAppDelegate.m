@@ -7,6 +7,7 @@
 //
 
 #import "SSAppDelegate.h"
+#import "SSToDoListViewController.h"
 
 @implementation SSAppDelegate
 
@@ -17,8 +18,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    // Create the root view controller (no need for nib or bundle name; they default to the correct values)
+    SSToDoListViewController * toDoList = [[SSToDoListViewController alloc] initWithNibName:nil bundle:nil];
+    toDoList.context = self.managedObjectContext;
+    [self.window setRootViewController:toDoList];
     [self.window makeKeyAndVisible];
     return YES;
 }
