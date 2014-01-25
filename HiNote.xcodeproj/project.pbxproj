@@ -22,6 +22,7 @@
 		166376A31893B43C00617C20 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 166376871893B43C00617C20 /* CoreData.framework */; };
 		166376AB1893B43C00617C20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 166376A91893B43C00617C20 /* InfoPlist.strings */; };
 		166376AD1893B43C00617C20 /* HiNoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376AC1893B43C00617C20 /* HiNoteTests.m */; };
+		166376B91893B59300617C20 /* OMToDoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376B81893B59300617C20 /* OMToDoItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		166376A81893B43C00617C20 /* HiNoteTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HiNoteTests-Info.plist"; sourceTree = "<group>"; };
 		166376AA1893B43C00617C20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		166376AC1893B43C00617C20 /* HiNoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiNoteTests.m; sourceTree = "<group>"; };
+		166376B71893B59300617C20 /* OMToDoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMToDoItem.h; sourceTree = "<group>"; };
+		166376B81893B59300617C20 /* OMToDoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OMToDoItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +120,8 @@
 			children = (
 				166376921893B43C00617C20 /* SSAppDelegate.h */,
 				166376931893B43C00617C20 /* SSAppDelegate.m */,
+				166376B61893B55400617C20 /* Object Model */,
 				166376981893B43C00617C20 /* Images.xcassets */,
-				166376951893B43C00617C20 /* HiNote.xcdatamodeld */,
 				1663768A1893B43C00617C20 /* Supporting Files */,
 			);
 			path = HiNote;
@@ -151,6 +154,16 @@
 				166376A91893B43C00617C20 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		166376B61893B55400617C20 /* Object Model */ = {
+			isa = PBXGroup;
+			children = (
+				166376951893B43C00617C20 /* HiNote.xcdatamodeld */,
+				166376B71893B59300617C20 /* OMToDoItem.h */,
+				166376B81893B59300617C20 /* OMToDoItem.m */,
+			);
+			name = "Object Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				166376B91893B59300617C20 /* OMToDoItem.m in Sources */,
 				166376941893B43C00617C20 /* SSAppDelegate.m in Sources */,
 				166376901893B43C00617C20 /* main.m in Sources */,
 				166376971893B43C00617C20 /* HiNote.xcdatamodeld in Sources */,
