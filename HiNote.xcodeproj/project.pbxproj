@@ -25,6 +25,8 @@
 		166376B91893B59300617C20 /* OMToDoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376B81893B59300617C20 /* OMToDoItem.m */; };
 		166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376BB1893E92300617C20 /* SSToDoListViewController.m */; };
 		166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376BC1893E92300617C20 /* SSToDoListViewController.xib */; };
+		166376CB18940E5200617C20 /* SSToDoItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CA18940E5200617C20 /* SSToDoItemCell.m */; };
+		166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376CC18940E8100617C20 /* SSToDoItemCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,9 @@
 		166376BA1893E92300617C20 /* SSToDoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSToDoListViewController.h; sourceTree = "<group>"; };
 		166376BB1893E92300617C20 /* SSToDoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSToDoListViewController.m; sourceTree = "<group>"; };
 		166376BC1893E92300617C20 /* SSToDoListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSToDoListViewController.xib; sourceTree = "<group>"; };
+		166376C918940E5200617C20 /* SSToDoItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSToDoItemCell.h; sourceTree = "<group>"; };
+		166376CA18940E5200617C20 /* SSToDoItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSToDoItemCell.m; sourceTree = "<group>"; };
+		166376CC18940E8100617C20 /* SSToDoItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSToDoItemCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +133,9 @@
 				166376BA1893E92300617C20 /* SSToDoListViewController.h */,
 				166376BB1893E92300617C20 /* SSToDoListViewController.m */,
 				166376BC1893E92300617C20 /* SSToDoListViewController.xib */,
+				166376C918940E5200617C20 /* SSToDoItemCell.h */,
+				166376CA18940E5200617C20 /* SSToDoItemCell.m */,
+				166376CC18940E8100617C20 /* SSToDoItemCell.xib */,
 				166376B61893B55400617C20 /* Object Model */,
 				166376981893B43C00617C20 /* Images.xcassets */,
 				1663768A1893B43C00617C20 /* Supporting Files */,
@@ -252,6 +260,7 @@
 			files = (
 				1663768E1893B43C00617C20 /* InfoPlist.strings in Resources */,
 				166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */,
+				166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */,
 				166376991893B43C00617C20 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +284,7 @@
 				166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */,
 				166376941893B43C00617C20 /* SSAppDelegate.m in Sources */,
 				166376901893B43C00617C20 /* main.m in Sources */,
+				166376CB18940E5200617C20 /* SSToDoItemCell.m in Sources */,
 				166376971893B43C00617C20 /* HiNote.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +486,7 @@
 				166376B21893B43C00617C20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		166376B31893B43C00617C20 /* Build configuration list for PBXNativeTarget "HiNoteTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +495,7 @@
 				166376B51893B43C00617C20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

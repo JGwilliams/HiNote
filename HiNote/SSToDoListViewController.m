@@ -7,6 +7,7 @@
 //
 
 #import "SSToDoListViewController.h"
+#import "SSToDoItemCell.h"
 #import "OMToDoItem.h"
 
 // Keep properties private unless there is a need to expose them
@@ -16,10 +17,13 @@
 @property (nonatomic, assign) IBOutlet UITableView * tableView;
 @property (nonatomic, strong) NSFetchedResultsController * fetchController;
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
+@property (nonatomic, strong) SSToDoItemCell * sizingCell;
 @end
+
 
 NSString * const toDoItemName = @"ToDoItem";
 NSString * const toDoCellIdentifier = @"todo_cell";
+NSString * const toDoCellNibName = @"SSToDoItemCell";
 NSString * const newItemCellIdentifier = @"new_item_cell";
 NSString * const fetchControllerCache = @"todo_list_cache";
 
@@ -28,16 +32,19 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        // We use the date formatter a lot, so best not to recreate it every time.
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        
+    if (self) {        
         // TODO: listen out for keyboard notifications so we can adjust the table view
     }
     return self;
+}
+
+
+
+- (void) viewDidLoad
+{
+    UINib * cellNib = [UINib nibWithNibName:toDoCellNibName bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:toDoCellIdentifier];
+    self.sizingCell = [[cellNib instantiateWithOwner:self options:nil] objectAtIndex:0];
 }
 
 
@@ -124,6 +131,9 @@ NSString * const fetchControllerCache = @"todo_list_cache";
             NSLog(@"Error saving context: %@", error.localizedDescription);
         return;
     }
+    
+    // Otherwise, we need to reload the new index path cell
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
@@ -166,20 +176,27 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 {
     // The last cell is always the 'add new item' cell.
     if (indexPath.row == [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:toDoCellIdentifier];
-        if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:toDoCellIdentifier];
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:newItemCellIdentifier];
+        if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:newItemCellIdentifier];
         cell.textLabel.text = @"Tap to add a new item.";
         return cell;
     }
     
     // Populate the cell with information from the managed object
     // TODO: replace this standard cell with a custom cell stored in a registered class or nib
-    OMToDoItem * item = [self.fetchController objectAtIndexPath:indexPath];
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:toDoCellIdentifier];
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:toDoCellIdentifier];
-    cell.textLabel.text = item.title;
-    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:item.created];
+    SSToDoItemCell * cell = (SSToDoItemCell *)[tableView dequeueReusableCellWithIdentifier:toDoCellIdentifier forIndexPath:indexPath];
+    cell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];
     return cell;
+}
+
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (![tableView.indexPathForSelectedRow isEqual:indexPath]) return 48.0;
+    if (indexPath.row == [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) return 48.0;
+    self.sizingCell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];    
+    return [self.sizingCell desiredHeight];
 }
 
 
