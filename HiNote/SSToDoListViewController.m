@@ -119,7 +119,9 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     if (indexPath.row >= [info numberOfObjects]) {
         OMToDoItem * newItem = [NSEntityDescription insertNewObjectForEntityForName:toDoItemName inManagedObjectContext:self.context];
         newItem.title = @"New Item";
-        [self.context save:nil];
+        NSError * error = nil;
+        if (![self.context save:&error])
+            NSLog(@"Error saving context: %@", error.localizedDescription);
         return;
     }
 }
@@ -202,7 +204,9 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     self.fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context
                                                                  sectionNameKeyPath:nil cacheName:fetchControllerCache];
     self.fetchController.delegate = self;
-    [self.fetchController performFetch:nil];
+    NSError * error = nil;
+    if (![self.fetchController performFetch:&error])
+        NSLog(@"Error creating fetched results controller: %@", error.localizedDescription);
     [self.tableView reloadData];
 }
 
