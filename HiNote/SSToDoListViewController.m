@@ -138,6 +138,13 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 
 
+- (void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+
 #pragma mark - Table View Datasource
 
 // N.B. the majority of the data source is handled by our NSFetchedResultsController
