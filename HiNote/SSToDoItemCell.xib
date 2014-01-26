@@ -54,6 +54,18 @@
                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3o-nf-eZJ" customClass="SSCheckBox">
+                        <rect key="frame" x="280" y="10" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="MY3-AW-Gmi"/>
+                            <constraint firstAttribute="height" constant="30" id="zot-zU-orC"/>
+                        </constraints>
+                        <connections>
+                            <action selector="checkButtonTouched:" destination="89e-R4-OGe" eventType="valueChanged" id="cEZ-Jm-AnX"/>
+                        </connections>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Xg9-VX-niu" firstAttribute="top" secondItem="zfH-cL-IRi" secondAttribute="bottom" constant="-4" id="4X3-oN-Q9V"/>
@@ -68,10 +80,13 @@
                     <constraint firstItem="RyL-1P-gti" firstAttribute="top" secondItem="koj-FH-b8q" secondAttribute="bottom" constant="-14" id="Ngl-jy-xUJ"/>
                     <constraint firstItem="RyL-1P-gti" firstAttribute="leading" secondItem="XSB-lW-rMX" secondAttribute="leading" constant="10" id="Qal-5Q-j01"/>
                     <constraint firstItem="koj-FH-b8q" firstAttribute="top" secondItem="XSB-lW-rMX" secondAttribute="top" id="cda-ah-Gbq"/>
+                    <constraint firstItem="b3o-nf-eZJ" firstAttribute="top" secondItem="XSB-lW-rMX" secondAttribute="top" constant="10" id="f9a-M5-XxH"/>
                     <constraint firstAttribute="trailing" secondItem="koj-FH-b8q" secondAttribute="trailing" constant="45" id="nSK-Aw-eHr"/>
+                    <constraint firstAttribute="trailing" secondItem="b3o-nf-eZJ" secondAttribute="trailing" constant="10" id="pyT-ET-ZjG"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="checkBox" destination="b3o-nf-eZJ" id="1vH-se-fdv"/>
                 <outlet property="createdLabel" destination="RyL-1P-gti" id="KTl-u2-TUI"/>
                 <outlet property="synopsisView" destination="Xg9-VX-niu" id="g3q-k5-Vh0"/>
                 <outlet property="titleView" destination="koj-FH-b8q" id="V1M-lu-V1D"/>

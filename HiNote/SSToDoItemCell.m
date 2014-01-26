@@ -7,6 +7,7 @@
 //
 
 #import "SSToDoItemCell.h"
+#import "SSCheckBox.h"
 #import "OMToDoItem.h"
 
 @interface SSToDoItemCell ()
@@ -16,8 +17,11 @@
 @property (nonatomic, assign) IBOutlet UILabel * updatedLabel;
 @property (nonatomic, assign) IBOutlet UITextView * titleView;
 @property (nonatomic, assign) IBOutlet UITextView * synopsisView;
+@property (nonatomic, assign) IBOutlet SSCheckBox * checkBox;
 
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
+
+- (IBAction)checkButtonTouched:(id)sender;
 
 @end
 
@@ -72,7 +76,19 @@
     self.createdLabel.text = [NSString stringWithFormat:@"Created: %@", created];
     self.updatedLabel.text = [NSString stringWithFormat:@"Updated: %@", updated];
     
+    // Check or uncheck the box
+    self.checkBox.checked = [toDoItem.status boolValue];
+    
     // Autolayout will take care of resizing the cell
+}
+
+
+
+- (IBAction)checkButtonTouched:(SSCheckBox *)sender
+{
+    // Update the todo item's status and inform the delegate of the change.
+    self.toDoItem.status = [NSNumber numberWithBool:sender.checked];
+    if (self.delegate) [self.delegate cellDidFinishEditing:self];
 }
 
 

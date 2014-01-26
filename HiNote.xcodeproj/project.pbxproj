@@ -28,6 +28,7 @@
 		166376CB18940E5200617C20 /* SSToDoItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CA18940E5200617C20 /* SSToDoItemCell.m */; };
 		166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376CC18940E8100617C20 /* SSToDoItemCell.xib */; };
 		166376D018953A3800617C20 /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CF18953A3800617C20 /* SSTextView.m */; };
+		166376D318955D0D00617C20 /* SSCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376D218955D0C00617C20 /* SSCheckBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		166376CC18940E8100617C20 /* SSToDoItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSToDoItemCell.xib; sourceTree = "<group>"; };
 		166376CE18953A3700617C20 /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTextView.h; sourceTree = "<group>"; };
 		166376CF18953A3800617C20 /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTextView.m; sourceTree = "<group>"; };
+		166376D118955D0C00617C20 /* SSCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckBox.h; sourceTree = "<group>"; };
+		166376D218955D0C00617C20 /* SSCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckBox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +142,8 @@
 				166376C918940E5200617C20 /* SSToDoItemCell.h */,
 				166376CA18940E5200617C20 /* SSToDoItemCell.m */,
 				166376CC18940E8100617C20 /* SSToDoItemCell.xib */,
+				166376D118955D0C00617C20 /* SSCheckBox.h */,
+				166376D218955D0C00617C20 /* SSCheckBox.m */,
 				166376CE18953A3700617C20 /* SSTextView.h */,
 				166376CF18953A3800617C20 /* SSTextView.m */,
 				166376B61893B55400617C20 /* Object Model */,
@@ -289,6 +294,7 @@
 				166376B91893B59300617C20 /* OMToDoItem.m in Sources */,
 				166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */,
 				166376941893B43C00617C20 /* SSAppDelegate.m in Sources */,
+				166376D318955D0D00617C20 /* SSCheckBox.m in Sources */,
 				166376901893B43C00617C20 /* main.m in Sources */,
 				166376CB18940E5200617C20 /* SSToDoItemCell.m in Sources */,
 				166376971893B43C00617C20 /* HiNote.xcdatamodeld in Sources */,
