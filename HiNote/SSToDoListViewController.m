@@ -210,7 +210,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     }
     
     // Populate the cell with information from the managed object
-    // TODO: replace this standard cell with a custom cell stored in a registered class or nib
     SSToDoItemCell * cell = (SSToDoItemCell *)[tableView dequeueReusableCellWithIdentifier:toDoCellIdentifier forIndexPath:indexPath];
     cell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];
     cell.delegate = self;
