@@ -136,6 +136,30 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     }
     
     // TODO: reinstate cell enlargement by some other means
+    // TODO: scroll to a suitable position to keep the cell visible
+}
+
+
+
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id <NSFetchedResultsSectionInfo> info = [self.fetchController.sections objectAtIndex:indexPath.section];
+    return (indexPath.row < [info numberOfObjects]);
+}
+
+
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        OMToDoItem * item = [self.fetchController objectAtIndexPath:indexPath];
+        if (item) {
+            [self.context deleteObject:item];
+            NSError * error = nil;
+            if (![self.context save:&error])
+                NSLog(@"Error saving context: %@", error.localizedDescription);
+        }
+    }
 }
 
 

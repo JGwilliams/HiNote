@@ -28,7 +28,7 @@
     return YES;
 }
 
-
+// TODO: general beautification
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
