@@ -2,12 +2,12 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ToDoItem" representedClassName="OMToDoItem" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="synopsis" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ToDoItem" positionX="160" positionY="-864" width="128" height="118"/>
+        <element name="ToDoItem" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

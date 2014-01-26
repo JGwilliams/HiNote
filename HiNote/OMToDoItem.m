@@ -8,33 +8,16 @@
 
 #import "OMToDoItem.h"
 
+NSString * const kToDoCreated = @"created";
+NSString * const kToDoUpdated = @"lastUpdated";
 
 @implementation OMToDoItem
 
 @dynamic title;
 @dynamic status;
-@dynamic updated;
+@dynamic lastUpdated;
 @dynamic created;
 @dynamic synopsis;
-
-
-// Allow the item to keep track of its own creation and last updated dates.
-
-- (void) awakeFromInsert
-{
-    [super awakeFromInsert];
-    NSDate * current = [NSDate date];
-    [self setPrimitiveValue:current forKey:@"created"];
-    [self setPrimitiveValue:current forKey:@"updated"];
-}
-
-
-
-- (void) willSave
-{
-    [self setPrimitiveValue:[NSDate date] forKey:@"updated"];
-}
-
 
 
 @end

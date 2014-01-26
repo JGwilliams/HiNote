@@ -65,6 +65,18 @@
 
 - (void) setToDoItem:(OMToDoItem *)toDoItem
 {
+    // Unobserve the todo item if it exists
+    if (_toDoItem) {
+        [_toDoItem removeObserver:self forKeyPath:kToDoCreated];
+        [_toDoItem removeObserver:self forKeyPath:kToDoUpdated];
+    }
+    
+    // Observe the cell for changes to items that are beyond the cell's control
+    if (toDoItem) {
+        [toDoItem addObserver:self forKeyPath:kToDoCreated options:NSKeyValueObservingOptionNew context:nil];
+        [toDoItem addObserver:self forKeyPath:kToDoUpdated options:NSKeyValueObservingOptionNew context:nil];
+    }
+    
     // Set ToDo item
     _toDoItem = toDoItem;
     self.titleView.text = toDoItem.title;
@@ -72,7 +84,7 @@
     
     // Set dates
     NSString * created = [self.dateFormatter stringFromDate:toDoItem.created];
-    NSString * updated = [self.dateFormatter stringFromDate:toDoItem.updated];
+    NSString * updated = [self.dateFormatter stringFromDate:toDoItem.lastUpdated];
     self.createdLabel.text = [NSString stringWithFormat:@"Created: %@", created];
     self.updatedLabel.text = [NSString stringWithFormat:@"Updated: %@", updated];
     
@@ -89,6 +101,24 @@
     // Update the todo item's status and inform the delegate of the change.
     self.toDoItem.status = [NSNumber numberWithBool:sender.checked];
     if (self.delegate) [self.delegate cellDidFinishEditing:self];
+}
+
+
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSDate * new = [change objectForKey:NSKeyValueChangeNewKey];
+    
+    if ([keyPath isEqualToString:kToDoCreated]) {
+        NSString * created = [self.dateFormatter stringFromDate:new];
+        self.createdLabel.text = [NSString stringWithFormat:@"Created: %@", created];
+        return;
+    }
+    
+    if ([keyPath isEqualToString:kToDoUpdated]) {
+        NSString * updated = [self.dateFormatter stringFromDate:new];
+        self.updatedLabel.text = [NSString stringWithFormat:@"Updated: %@", updated];
+    }
 }
 
 

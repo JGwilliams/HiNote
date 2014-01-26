@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+extern NSString * const kToDoCreated;
+extern NSString * const kToDoUpdated;
 
 @interface OMToDoItem : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSDate * updated;
+@property (nonatomic, retain) NSDate * lastUpdated;
 @property (nonatomic, retain) NSDate * created;
 @property (nonatomic, retain) NSString * synopsis;
 

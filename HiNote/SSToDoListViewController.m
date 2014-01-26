@@ -126,6 +126,9 @@ NSString * const fetchControllerCache = @"todo_list_cache";
         OMToDoItem * newItem = [NSEntityDescription insertNewObjectForEntityForName:toDoItemName inManagedObjectContext:self.context];
         newItem.title = @"New Item";
         newItem.synopsis = @"Synopsis";
+        newItem.created = [NSDate date];
+        newItem.lastUpdated = [NSDate date];
+        
         NSError * error = nil;
         if (![self.context save:&error])
             NSLog(@"Error saving context: %@", error.localizedDescription);
@@ -149,6 +152,8 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) cellDidFinishEditing:(SSToDoItemCell *)cell
 {
+    cell.toDoItem.lastUpdated = [NSDate date];
+    
     // The cell has finished editing, so save the context
     if ([self.context hasChanges]) {
         NSError * error = nil;
@@ -156,12 +161,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
             NSLog(@"Error saving context: %@", error.localizedDescription);
         }
     }
-    
-    // We should reload that cell to update its updated date
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView endUpdates];
 }
 
 
@@ -229,7 +228,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     [self.sizingCell setNeedsLayout];
     [self.sizingCell layoutIfNeeded];
 
-    
     // Return the desired height
     CGSize desired = [self.sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return desired.height;
