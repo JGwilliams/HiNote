@@ -32,15 +32,29 @@
 
 @implementation SSToDoItemCell
 
+- (void) initialise
+{
+    // We use the date formatter a lot, so best not to recreate it every time.
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+}
+
+
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) [self initialise];
+    return self;
+}
+
+
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // We use the date formatter a lot, so best not to recreate it every time.
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    }
+    if (self) [self initialise];
     return self;
 }
 
