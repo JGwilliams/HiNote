@@ -11,7 +11,7 @@
 #import "OMToDoItem.h"
 
 // Keep properties private unless there is a need to expose them
-@interface SSToDoListViewController ()
+@interface SSToDoListViewController () <SSToDoItemCellDelegate>
 
 // No need to retain this as it will be retained by the view
 @property (nonatomic, assign) IBOutlet UITableView * tableView;
@@ -85,8 +85,7 @@ NSString * const fetchControllerCache = @"todo_list_cache";
             [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             break;
         case NSFetchedResultsChangeUpdate :
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            // Do nothing - if we update the cell, it loses first responder status
         default : break;
     }
 }
@@ -126,21 +125,43 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     if (indexPath.row >= [info numberOfObjects]) {
         OMToDoItem * newItem = [NSEntityDescription insertNewObjectForEntityForName:toDoItemName inManagedObjectContext:self.context];
         newItem.title = @"New Item";
+        newItem.synopsis = @"Synopsis";
         NSError * error = nil;
         if (![self.context save:&error])
             NSLog(@"Error saving context: %@", error.localizedDescription);
         return;
     }
     
-    // Otherwise, we need to reload the new index path cell
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    // TODO: reinstate cell enlargement by some other means
 }
 
 
 
-- (void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Cell Delegate
+
+- (void) cellDidInvalidateHeight:(SSToDoItemCell *)cell
 {
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
+
+
+- (void) cellDidFinishEditing:(SSToDoItemCell *)cell
+{
+    // The cell has finished editing, so save the context
+    if ([self.context hasChanges]) {
+        NSError * error = nil;
+        if (![self.context save:&error]) {
+            NSLog(@"Error saving context: %@", error.localizedDescription);
+        }
+    }
+    
+    // We should reload that cell to update its updated date
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
 }
 
 
@@ -193,6 +214,7 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     // TODO: replace this standard cell with a custom cell stored in a registered class or nib
     SSToDoItemCell * cell = (SSToDoItemCell *)[tableView dequeueReusableCellWithIdentifier:toDoCellIdentifier forIndexPath:indexPath];
     cell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];
+    cell.delegate = self;
     return cell;
 }
 
@@ -200,10 +222,24 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![tableView.indexPathForSelectedRow isEqual:indexPath]) return 48.0;
     if (indexPath.row == [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) return 48.0;
-    self.sizingCell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];    
-    return [self.sizingCell desiredHeight];
+    
+    // Update the contents and force a refresh
+    self.sizingCell.toDoItem = [self.fetchController objectAtIndexPath:indexPath];
+    [self.sizingCell setNeedsLayout];
+    [self.sizingCell layoutIfNeeded];
+
+    
+    // Return the desired height
+    CGSize desired = [self.sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return desired.height;
+}
+
+
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 48.0;
 }
 
 

@@ -12,18 +12,10 @@
 @interface SSToDoItemCell ()
 
 // Nib Objects
-@property (nonatomic, assign) IBOutlet UILabel * titleLabel;
 @property (nonatomic, assign) IBOutlet UILabel * createdLabel;
 @property (nonatomic, assign) IBOutlet UILabel * updatedLabel;
-@property (nonatomic, assign) IBOutlet UILabel * synopsisLabel;
 @property (nonatomic, assign) IBOutlet UITextView * titleView;
 @property (nonatomic, assign) IBOutlet UITextView * synopsisView;
-
-// Autolayout Constraints
-@property (nonatomic, assign) IBOutlet NSLayoutConstraint * titleLabelHeight;
-@property (nonatomic, assign) IBOutlet NSLayoutConstraint * titleViewHeight;
-@property (nonatomic, assign) IBOutlet NSLayoutConstraint * synopsisLabelHeight;
-@property (nonatomic, assign) IBOutlet NSLayoutConstraint * synopsisViewHeight;
 
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
 
@@ -69,30 +61,60 @@
 
 - (void) setToDoItem:(OMToDoItem *)toDoItem
 {
+    // Set ToDo item
     _toDoItem = toDoItem;
-    self.titleLabel.text = self.titleView.text = toDoItem.title;
-    self.synopsisLabel.text = self.synopsisView.text = toDoItem.synopsis;
+    self.titleView.text = toDoItem.title;
+    self.synopsisView.text = toDoItem.synopsis;
     
+    // Set dates
     NSString * created = [self.dateFormatter stringFromDate:toDoItem.created];
     NSString * updated = [self.dateFormatter stringFromDate:toDoItem.updated];
-    
     self.createdLabel.text = [NSString stringWithFormat:@"Created: %@", created];
     self.updatedLabel.text = [NSString stringWithFormat:@"Updated: %@", updated];
     
-    CGSize titleSize = [self.titleLabel sizeThatFits:self.titleLabel.frame.size];
-    CGSize synopsisSize = [self.synopsisLabel sizeThatFits:self.synopsisLabel.frame.size];
-    self.titleLabelHeight.constant = titleSize.height;
-    self.synopsisLabelHeight.constant = synopsisSize.height;
-    [self layoutIfNeeded];
+    // Autolayout will take care of resizing the cell
 }
 
 
 
-- (CGFloat) desiredHeight
+#pragma mark - Text View Delegate
+
+- (void) textViewDidChange:(UITextView *)textView
 {
-    if (self.synopsisLabel.text.length == 0)
-        return CGRectGetMaxY(self.updatedLabel.frame) + 5.0;
-    return CGRectGetMaxY(self.synopsisLabel.frame) + 5.0;
+    // Update the appropriate managed object property
+    if (textView == self.titleView) {
+        self.toDoItem.title = textView.text;
+    } else if (textView == self.synopsisView) {
+        self.toDoItem.synopsis = textView.text;
+    }
+    
+    // Ensure that the cell is resized appropriately
+    [self invalidateIntrinsicContentSize];
+    [self setNeedsLayout];
+    if (self.delegate) [self.delegate cellDidInvalidateHeight:self];
+    
+    // TODO: it would be nice to optimise this method so that it is
+    // only executed when a change of height is required.
+}
+
+
+
+- (void) textViewDidEndEditing:(UITextView *)textView
+{
+    // Forward the responsibility to a delegate object
+    if (self.delegate) [self.delegate cellDidFinishEditing:self];
+}
+
+
+
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    // Act like a text view; exit upon hitting the return key.
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 

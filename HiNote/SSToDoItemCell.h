@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SSToDoItemCellDelegate;
+
 @class OMToDoItem;
 @interface SSToDoItemCell : UITableViewCell <UITextViewDelegate>
+@property (nonatomic, assign) id <SSToDoItemCellDelegate> delegate;
 @property (nonatomic, strong) OMToDoItem * toDoItem;
-- (CGFloat) desiredHeight;
+@end
+
+@protocol SSToDoItemCellDelegate <NSObject>
+- (void) cellDidInvalidateHeight:(SSToDoItemCell *)cell;
+- (void) cellDidFinishEditing:(SSToDoItemCell *)cell;
 @end

@@ -27,6 +27,7 @@
 		166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376BC1893E92300617C20 /* SSToDoListViewController.xib */; };
 		166376CB18940E5200617C20 /* SSToDoItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CA18940E5200617C20 /* SSToDoItemCell.m */; };
 		166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376CC18940E8100617C20 /* SSToDoItemCell.xib */; };
+		166376D018953A3800617C20 /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CF18953A3800617C20 /* SSTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		166376C918940E5200617C20 /* SSToDoItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSToDoItemCell.h; sourceTree = "<group>"; };
 		166376CA18940E5200617C20 /* SSToDoItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSToDoItemCell.m; sourceTree = "<group>"; };
 		166376CC18940E8100617C20 /* SSToDoItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSToDoItemCell.xib; sourceTree = "<group>"; };
+		166376CE18953A3700617C20 /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTextView.h; sourceTree = "<group>"; };
+		166376CF18953A3800617C20 /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				166376C918940E5200617C20 /* SSToDoItemCell.h */,
 				166376CA18940E5200617C20 /* SSToDoItemCell.m */,
 				166376CC18940E8100617C20 /* SSToDoItemCell.xib */,
+				166376CE18953A3700617C20 /* SSTextView.h */,
+				166376CF18953A3800617C20 /* SSTextView.m */,
 				166376B61893B55400617C20 /* Object Model */,
 				166376981893B43C00617C20 /* Images.xcassets */,
 				1663768A1893B43C00617C20 /* Supporting Files */,
@@ -280,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				166376D018953A3800617C20 /* SSTextView.m in Sources */,
 				166376B91893B59300617C20 /* OMToDoItem.m in Sources */,
 				166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */,
 				166376941893B43C00617C20 /* SSAppDelegate.m in Sources */,
