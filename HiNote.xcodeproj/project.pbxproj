@@ -29,6 +29,8 @@
 		166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376CC18940E8100617C20 /* SSToDoItemCell.xib */; };
 		166376D018953A3800617C20 /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376CF18953A3800617C20 /* SSTextView.m */; };
 		166376D318955D0D00617C20 /* SSCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376D218955D0C00617C20 /* SSCheckBox.m */; };
+		166376D71896F24600617C20 /* SSPreparingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166376D61896F24600617C20 /* SSPreparingViewController.m */; };
+		166376D91896F26A00617C20 /* SSPreparingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166376D81896F26A00617C20 /* SSPreparingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,10 @@
 		166376CF18953A3800617C20 /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTextView.m; sourceTree = "<group>"; };
 		166376D118955D0C00617C20 /* SSCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckBox.h; sourceTree = "<group>"; };
 		166376D218955D0C00617C20 /* SSCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckBox.m; sourceTree = "<group>"; };
+		166376D4189594D500617C20 /* HiNote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HiNote.entitlements; sourceTree = "<group>"; };
+		166376D51896F24600617C20 /* SSPreparingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPreparingViewController.h; sourceTree = "<group>"; };
+		166376D61896F24600617C20 /* SSPreparingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPreparingViewController.m; sourceTree = "<group>"; };
+		166376D81896F26A00617C20 /* SSPreparingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSPreparingViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,11 +140,15 @@
 		166376891893B43C00617C20 /* HiNote */ = {
 			isa = PBXGroup;
 			children = (
+				166376D4189594D500617C20 /* HiNote.entitlements */,
 				166376921893B43C00617C20 /* SSAppDelegate.h */,
 				166376931893B43C00617C20 /* SSAppDelegate.m */,
 				166376BA1893E92300617C20 /* SSToDoListViewController.h */,
 				166376BB1893E92300617C20 /* SSToDoListViewController.m */,
 				166376BC1893E92300617C20 /* SSToDoListViewController.xib */,
+				166376D51896F24600617C20 /* SSPreparingViewController.h */,
+				166376D61896F24600617C20 /* SSPreparingViewController.m */,
+				166376D81896F26A00617C20 /* SSPreparingViewController.xib */,
 				166376C918940E5200617C20 /* SSToDoItemCell.h */,
 				166376CA18940E5200617C20 /* SSToDoItemCell.m */,
 				166376CC18940E8100617C20 /* SSToDoItemCell.xib */,
@@ -240,6 +250,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Sane Studios";
 				TargetAttributes = {
+					1663767D1893B43C00617C20 = {
+						DevelopmentTeam = MB6AXX56DD;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					1663769D1893B43C00617C20 = {
 						TestTargetID = 1663767D1893B43C00617C20;
 					};
@@ -269,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1663768E1893B43C00617C20 /* InfoPlist.strings in Resources */,
+				166376D91896F26A00617C20 /* SSPreparingViewController.xib in Resources */,
 				166376BE1893E92300617C20 /* SSToDoListViewController.xib in Resources */,
 				166376CD18940E8100617C20 /* SSToDoItemCell.xib in Resources */,
 				166376991893B43C00617C20 /* Images.xcassets in Resources */,
@@ -290,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				166376D71896F24600617C20 /* SSPreparingViewController.m in Sources */,
 				166376D018953A3800617C20 /* SSTextView.m in Sources */,
 				166376B91893B59300617C20 /* OMToDoItem.m in Sources */,
 				166376BD1893E92300617C20 /* SSToDoListViewController.m in Sources */,
@@ -416,10 +436,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = HiNote/HiNote.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HiNote/HiNote-Prefix.pch";
 				INFOPLIST_FILE = "HiNote/HiNote-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -429,10 +453,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = HiNote/HiNote.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HiNote/HiNote-Prefix.pch";
 				INFOPLIST_FILE = "HiNote/HiNote-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

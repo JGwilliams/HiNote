@@ -45,6 +45,20 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     UINib * cellNib = [UINib nibWithNibName:toDoCellNibName bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:toDoCellIdentifier];
     self.sizingCell = [[cellNib instantiateWithOwner:self options:nil] objectAtIndex:0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForICloudNotification:)
+     name: NSPersistentStoreDidImportUbiquitousContentChangesNotification object:nil];
+}
+
+// TODO: this notification never seems to be received
+
+- (void) updateForICloudNotification:(NSNotification *)notification
+{
+    NSLog(@"Update for iCloud");
+    NSError * error = nil;
+    if (![[self fetchController] performFetch:&error]) {
+        NSLog(@"Fetch error: %@", error.localizedDescription);
+    }
 }
 
 
