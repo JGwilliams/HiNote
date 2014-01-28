@@ -127,13 +127,6 @@
 
 - (void) textViewDidChange:(UITextView *)textView
 {
-    // Update the appropriate managed object property
-    if (textView == self.titleView) {
-        self.toDoItem.title = textView.text;
-    } else if (textView == self.synopsisView) {
-        self.toDoItem.synopsis = textView.text;
-    }
-    
     // Ensure that the cell is resized appropriately
     [self invalidateIntrinsicContentSize];
     [self setNeedsLayout];
@@ -154,7 +147,14 @@
 
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
-    // Forward the responsibility to a delegate object
+    // Update the appropriate managed object property
+    if (textView == self.titleView) {
+        self.toDoItem.title = textView.text;
+    } else if (textView == self.synopsisView) {
+        self.toDoItem.synopsis = textView.text;
+    }
+    
+    // Forward the responsibility for saving to a delegate object
     if (self.delegate) [self.delegate cellDidFinishEditing:self];
 }
 
