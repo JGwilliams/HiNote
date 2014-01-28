@@ -54,7 +54,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) updateForICloudNotification:(NSNotification *)notification
 {
-    NSLog(@"Update for iCloud");
     NSError * error = nil;
     if (![[self fetchController] performFetch:&error]) {
         NSLog(@"Fetch error: %@", error.localizedDescription);
