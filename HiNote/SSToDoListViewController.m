@@ -18,6 +18,9 @@
 @property (nonatomic, strong) NSFetchedResultsController * fetchController;
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
 @property (nonatomic, strong) SSToDoItemCell * sizingCell;
+
+@property (nonatomic, strong) NSIndexPath * selectedCell;
+@property (nonatomic, assign) BOOL keyboardVisible;
 @end
 
 
@@ -60,6 +63,10 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     CGRect newFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect localFrame = [[[UIApplication sharedApplication] keyWindow] convertRect:newFrame toView:self.view];
     self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, CGRectGetMaxY(self.tableView.frame) - localFrame.origin.y, 0.0);
+    
+    self.keyboardVisible = (localFrame.origin.y < self.view.frame.size.height);
+    if (self.keyboardVisible && self.selectedCell)
+        [self.tableView scrollToRowAtIndexPath:self.selectedCell atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 
@@ -158,7 +165,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     }
     
     // TODO: reinstate cell enlargement by some other means
-    // TODO: scroll to a suitable position to keep the cell visible
 }
 
 
@@ -196,8 +202,20 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 
 
+- (void) cellDidBeginEditing:(SSToDoItemCell *)cell
+{
+    self.selectedCell = [self.tableView indexPathForCell:cell];
+    if (self.keyboardVisible) {
+        [self.tableView scrollToRowAtIndexPath:self.selectedCell atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
+
+
 - (void) cellDidFinishEditing:(SSToDoItemCell *)cell
 {
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    if ([indexPath isEqual:self.selectedCell]) self.selectedCell = nil;
     cell.toDoItem.lastUpdated = [NSDate date];
     
     // The cell has finished editing, so save the context

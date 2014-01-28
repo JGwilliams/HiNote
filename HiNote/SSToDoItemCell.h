@@ -18,5 +18,6 @@
 
 @protocol SSToDoItemCellDelegate <NSObject>
 - (void) cellDidInvalidateHeight:(SSToDoItemCell *)cell;
+- (void) cellDidBeginEditing:(SSToDoItemCell *)cell;
 - (void) cellDidFinishEditing:(SSToDoItemCell *)cell;
 @end

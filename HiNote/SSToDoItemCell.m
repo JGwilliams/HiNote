@@ -145,6 +145,13 @@
 
 
 
+- (void) textViewDidBeginEditing:(UITextView *)textView
+{
+    if (self.delegate) [self.delegate cellDidBeginEditing:self];
+}
+
+
+
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
     // Forward the responsibility to a delegate object
