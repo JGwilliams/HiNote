@@ -145,9 +145,7 @@ NSString * const persistantStoreCreatedNotification = @"persistantStoreCreatedNo
 
 - (void) mergeICloudUpdates:(NSNotification *)notification
 {
-    [self.managedObjectContext performBlock:^{
-        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-    }];
+    [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 }
 
 
@@ -160,12 +158,10 @@ NSString * const persistantStoreCreatedNotification = @"persistantStoreCreatedNo
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        NSManagedObjectContext * context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [context performBlockAndWait:^{
-            [context setPersistentStoreCoordinator: coordinator];
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(mergeICloudUpdates:)
-                                                        name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
-        }];
+        NSManagedObjectContext * context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator: coordinator];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(mergeICloudUpdates:)
+                                                    name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
         _managedObjectContext = context;
     }
     return _managedObjectContext;
