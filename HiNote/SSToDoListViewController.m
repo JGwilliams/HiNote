@@ -29,17 +29,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 @implementation SSToDoListViewController
 
-- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {        
-        // TODO: listen out for keyboard notifications so we can adjust the table view
-    }
-    return self;
-}
-
-
-
 - (void) viewDidLoad
 {
     UINib * cellNib = [UINib nibWithNibName:toDoCellNibName bundle:nil];
@@ -48,9 +37,12 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForICloudNotification:)
      name: NSPersistentStoreDidImportUbiquitousContentChangesNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChanged:)
+                                                 name:UIKeyboardDidChangeFrameNotification object:nil];
 }
 
-// TODO: this notification never seems to be received
+
 
 - (void) updateForICloudNotification:(NSNotification *)notification
 {
@@ -59,6 +51,15 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     if (![[self fetchController] performFetch:&error]) {
         NSLog(@"Fetch error: %@", error.localizedDescription);
     }
+}
+
+
+
+- (void) keyboardChanged:(NSNotification *)notification
+{
+    CGRect newFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect localFrame = [[[UIApplication sharedApplication] keyWindow] convertRect:newFrame toView:self.view];
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.tableView.frame.origin.y - localFrame.origin.y, 0.0);
 }
 
 
