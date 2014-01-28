@@ -132,6 +132,13 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 #pragma mark - Table View Delegate
 
+- (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id <NSFetchedResultsSectionInfo> info = [self.fetchController.sections objectAtIndex:indexPath.section];
