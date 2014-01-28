@@ -21,6 +21,11 @@
 
 @property (nonatomic, strong) NSIndexPath * selectedCell;
 @property (nonatomic, assign) BOOL keyboardVisible;
+
+@property (nonatomic, strong) NSMutableArray * deletedIndices;
+@property (nonatomic, strong) NSMutableArray * insertedIndices;
+@property (nonatomic, strong) NSMutableDictionary * movedIndices;
+
 @end
 
 
@@ -75,6 +80,15 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
+    if (!self.deletedIndices) self.deletedIndices = [NSMutableArray array];
+    else [self.deletedIndices removeAllObjects];
+    
+    if (!self.insertedIndices) self.insertedIndices = [NSMutableArray array];
+    else [self.insertedIndices removeAllObjects];
+    
+    if (!self.movedIndices) self.movedIndices = [NSMutableDictionary dictionary];
+    else [self.movedIndices removeAllObjects];
+    
     [self.tableView beginUpdates];
 }
 
@@ -82,6 +96,12 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    [self.tableView deleteRowsAtIndexPaths:self.deletedIndices withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:self.insertedIndices withRowAnimation:UITableViewRowAnimationAutomatic];
+    for (NSIndexPath * from in self.movedIndices.allKeys) {
+        NSIndexPath * to = [self.movedIndices objectForKey:from];
+        [self.tableView moveRowAtIndexPath:from toIndexPath:to];
+    }
     [self.tableView endUpdates];
 }
 
@@ -90,21 +110,16 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 - (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath
       forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    // TODO: this method will require optimising as it could occur many times in succession
-    // We should consider caching changes until the process ends and performing them all at once.
-    // This method will suffice for testing purposes.
-    
+    // These changes can happen repeatedly, so cache them and execute all at once.    
     switch (type) {
         case NSFetchedResultsChangeDelete :
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.deletedIndices addObject:indexPath];
             break;
         case NSFetchedResultsChangeInsert :
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.insertedIndices addObject:indexPath];
             break;
         case NSFetchedResultsChangeMove :
-            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            [self.movedIndices setObject:newIndexPath forKey:indexPath];
             break;
         case NSFetchedResultsChangeUpdate :
             // Do nothing - if we update the cell, it loses first responder status
@@ -117,10 +132,7 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 - (void) controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
             atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    // TODO: this method will require optimising as it could occur many times in succession
-    // We should consider caching changes until the process ends and performing them all at once.
-    // This method will suffice for testing purposes.
-    
+    // Since we only have one section to worry about, a simple implementation will do here.
     NSIndexSet * indexSet = [NSIndexSet indexSetWithIndex:sectionIndex];
     switch (type) {
         case NSFetchedResultsChangeDelete :
