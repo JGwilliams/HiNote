@@ -59,7 +59,7 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 {
     CGRect newFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect localFrame = [[[UIApplication sharedApplication] keyWindow] convertRect:newFrame toView:self.view];
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.tableView.frame.origin.y - localFrame.origin.y, 0.0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, CGRectGetMaxY(self.tableView.frame) - localFrame.origin.y, 0.0);
 }
 
 
