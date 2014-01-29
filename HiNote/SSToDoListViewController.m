@@ -54,10 +54,12 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) updateForICloudNotification:(NSNotification *)notification
 {
-    NSError * error = nil;
-    if (![[self fetchController] performFetch:&error]) {
-        NSLog(@"Fetch error: %@", error.localizedDescription);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSError * error = nil;
+        if (![[self fetchController] performFetch:&error]) {
+            NSLog(@"Fetch error: %@", error.localizedDescription);
+        }
+    });
 }
 
 
@@ -75,19 +77,20 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 
 
+- (void) prepareForClosure
+{
+    if (self.selectedCell) {
+        SSToDoItemCell * cell = (SSToDoItemCell *)[self.tableView cellForRowAtIndexPath:self.selectedCell];
+        [cell resignFirstResponder];
+    }
+}
+
+
+
 #pragma mark - Fetched Results Delegate
 
 - (void) controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    if (!self.deletedIndices) self.deletedIndices = [NSMutableArray array];
-    else [self.deletedIndices removeAllObjects];
-    
-    if (!self.insertedIndices) self.insertedIndices = [NSMutableArray array];
-    else [self.insertedIndices removeAllObjects];
-    
-    if (!self.movedIndices) self.movedIndices = [NSMutableDictionary dictionary];
-    else [self.movedIndices removeAllObjects];
-    
     [self.tableView beginUpdates];
 }
 
@@ -95,12 +98,6 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 
 - (void) controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView deleteRowsAtIndexPaths:self.deletedIndices withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView insertRowsAtIndexPaths:self.insertedIndices withRowAnimation:UITableViewRowAnimationAutomatic];
-    for (NSIndexPath * from in self.movedIndices.allKeys) {
-        NSIndexPath * to = [self.movedIndices objectForKey:from];
-        [self.tableView moveRowAtIndexPath:from toIndexPath:to];
-    }
     [self.tableView endUpdates];
 }
 
@@ -112,13 +109,13 @@ NSString * const fetchControllerCache = @"todo_list_cache";
     // These changes can happen repeatedly, so cache them and execute all at once.    
     switch (type) {
         case NSFetchedResultsChangeDelete :
-            [self.deletedIndices addObject:indexPath];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case NSFetchedResultsChangeInsert :
-            [self.insertedIndices addObject:indexPath];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case NSFetchedResultsChangeMove :
-            [self.movedIndices setObject:newIndexPath forKey:indexPath];
+            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             break;
         case NSFetchedResultsChangeUpdate :
             // Do nothing - if we update the cell, it loses first responder status
@@ -151,8 +148,8 @@ NSString * const fetchControllerCache = @"todo_list_cache";
 #pragma mark - Table View Delegate
 
 - (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
+{    id <NSFetchedResultsSectionInfo> info = [self.fetchController.sections objectAtIndex:indexPath.section];
+    return (indexPath.row >= [info numberOfObjects]);
 }
 
 

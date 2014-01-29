@@ -13,5 +13,5 @@
 // For adaptability, we pass in the managed object context rather than attempting
 // to read it directly from the app delegate.
 @property (nonatomic, strong) NSManagedObjectContext * context;
-
+- (void) prepareForClosure;
 @end

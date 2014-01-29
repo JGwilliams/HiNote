@@ -14,6 +14,7 @@
 @interface SSToDoItemCell : UITableViewCell <UITextViewDelegate>
 @property (nonatomic, assign) id <SSToDoItemCellDelegate> delegate;
 @property (nonatomic, strong) OMToDoItem * toDoItem;
+- (void) resignFirstResponder;
 @end
 
 @protocol SSToDoItemCellDelegate <NSObject>

@@ -123,6 +123,14 @@
 
 
 
+- (void) resignFirstResponder
+{
+    if ([self.titleView isFirstResponder]) [self.titleView resignFirstResponder];
+    if ([self.synopsisView isFirstResponder]) [self.synopsisView resignFirstResponder];
+}
+
+
+
 #pragma mark - Text View Delegate
 
 - (void) textViewDidChange:(UITextView *)textView

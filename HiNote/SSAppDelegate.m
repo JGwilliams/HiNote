@@ -97,8 +97,11 @@ NSString * const persistantStoreCreatedNotification = @"persistantStoreCreatedNo
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // Ensure that any unsaved changes in the table view are saved
+    if ([self.window.rootViewController isKindOfClass:[SSToDoListViewController class]]) {
+        SSToDoListViewController * root = (SSToDoListViewController *)self.window.rootViewController;
+        [root prepareForClosure];
+    }
 }
 
 
